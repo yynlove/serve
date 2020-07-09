@@ -5,4 +5,6 @@ import com.yh.serve.bean.Users;
 public interface UsersService {
 
     int insertOne(Users users);
+
+    Users selectOne(Users users);
 }

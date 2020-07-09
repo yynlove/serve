@@ -17,4 +17,11 @@ public class UsersServiceImpl implements UsersService {
     public int insertOne(Users users) {
         return usersMapper.insertSelective(users);
     }
+
+    @Override
+    public Users selectOne(Users users) {
+        return usersMapper.selectOne(users);
+    }
+
+
 }

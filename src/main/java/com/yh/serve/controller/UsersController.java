@@ -3,12 +3,10 @@ package com.yh.serve.controller;
 import com.yh.serve.bean.Users;
 import com.yh.serve.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -29,5 +27,11 @@ public class UsersController {
 
     }
 
+
+    @PostMapping("/login")
+    public String login(@RequestParam Map<String,Object> map){
+        System.out.println(map.toString());
+        return "200";
+    }
 
 }

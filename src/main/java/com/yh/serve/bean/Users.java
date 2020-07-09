@@ -1,14 +1,17 @@
 package com.yh.serve.bean;
 
-import javax.persistence.Column;
+import com.yh.serve.service.Authable;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Table(name = "users")
-public class Users implements Serializable {
+public class Users implements Serializable, Authable {
 
     @Id
     private Long id;
@@ -23,6 +26,7 @@ public class Users implements Serializable {
     private Date createTime;
 
     private Integer isValid;
+
 
 
     public Long getId() {
@@ -84,4 +88,18 @@ public class Users implements Serializable {
                 ", isValid=" + isValid +
                 '}';
     }
+
+    @Override
+    public String getIssuer() {
+        return this.userName;
+    }
+
+    @Override
+    public Map<String, Object> getClaims() {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("refreshCount", 0);
+        claims.put("userId", id);
+        return claims;
+    }
+
 }
