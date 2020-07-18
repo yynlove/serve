@@ -3,12 +3,7 @@ package com.yh.serve.bean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-/**
- * @author echo huang
- * @version 1.0
- * @date 2019-07-16 22:48
- * @description jjwt配置类
- */
+
 @ConfigurationProperties(prefix = "jjwt")
 @Component
 public class AuthProperties {

@@ -32,17 +32,17 @@ public class UsersControllerTest {
 
         @Test
         public void testUser() throws Exception{
-            Users users = new Users();
+         /*   Users users = new Users();
             users.setUserName("admin");
             users.setPassWord("123456");
             Users users1= usersService.selectOne(users);
-            System.out.println(users1.toString());
+            System.out.println(users1.toString());*/
         }
 
         @Test
         public void getTokenTest(){
 
-            Users users = new Users();
+           /* Users users = new Users();
             users.setUserName("admin");
             users.setPassWord("123456");
             Users users1= usersService.selectOne(users);
@@ -50,7 +50,7 @@ public class UsersControllerTest {
             logger.info("token-->"+token);
             Map<String, Object> stringObjectMap = jwtUtil.validateToken(token);
             logger.info("tokeninfo-->"+stringObjectMap.toString());
-
+*/
         }
 
 

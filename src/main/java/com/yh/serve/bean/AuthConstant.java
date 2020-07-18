@@ -1,11 +1,6 @@
 package com.yh.serve.bean;
 
-/**
- * @author OysterQAQ
- * @version 1.0
- * @date 2020/2/20 下午2:21
- * @description CommonConstant
- */
+
 public class AuthConstant {
     public static final String REFRESH_COUNT = "refreshCount";
     public final static String IS_BAN = "isBan";

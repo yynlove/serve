@@ -25,12 +25,6 @@ public class JWTUtil implements Serializable {
     @Autowired
     private  AuthProperties authProperties;
 
-   /* @Autowired
-    public JWTUtil(AuthProperties authProperties) {
-        this.authProperties = authProperties;
-    }*/
-
-
 
     public Claims getAllClaimsFromToken(String token) {
         JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(authProperties.getSecret().getBytes())).build();
@@ -52,13 +46,13 @@ public class JWTUtil implements Serializable {
         //long expirationTimeLong = Long.parseLong(authProperties.getExpirationTime());
         long expirationTimeLong = authProperties.getExpirationTime();
         final Date createdDate = new Date();
-        final Date expirationDate = new Date(createdDate.getTime() + (refreshCount + 1) * expirationTimeLong * 1000);
+        final Date expirationDate = new Date(createdDate.getTime() + (refreshCount + 1) * expirationTimeLong * 1);
         return Jwts.builder()
-                .setIssuer(issuer)
-                .setClaims(claims)
-                .setIssuedAt(createdDate)
-                .setExpiration(expirationDate)
-                .signWith(Keys.hmacShaKeyFor(authProperties.getSecret().getBytes()))
+                .setIssuer(issuer)//发行
+                .setClaims(claims) //正文
+                .setIssuedAt(createdDate) //开始时间
+                .setExpiration(expirationDate) //过期时间
+                .signWith(Keys.hmacShaKeyFor(authProperties.getSecret().getBytes())) //签名
                 .compact();
     }
 

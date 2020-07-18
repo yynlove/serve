@@ -2,12 +2,7 @@ package com.yh.serve.bean;
 
 import java.util.Map;
 
-/**
- * @author OysterQAQ
- * @version 2.0
- * @date 2019-09-09 13:58
- * @description
- */
+
 public class AppContext {
     private static final ThreadLocal<Map<String,Object>> CONTEXT = ThreadLocal.withInitial(() -> null);
 
