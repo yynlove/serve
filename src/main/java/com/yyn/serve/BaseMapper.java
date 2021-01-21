@@ -1,4 +1,4 @@
-package com.yh.serve;
+package com.yyn.serve;
 
 
 import tk.mybatis.mapper.common.ConditionMapper;

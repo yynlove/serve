@@ -1,11 +1,8 @@
-package com.yh.serve;
+package com.yyn.serve.jwtUtil;
 
 
 
-import com.yh.serve.bean.AuthConstant;
-import com.yh.serve.bean.AuthProperties;
-import com.yh.serve.exception.AuthExpirationException;
-import com.yh.serve.service.Authable;
+import com.yyn.serve.service.Authable;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
@@ -23,37 +20,52 @@ import java.util.Map;
 public class JWTUtil implements Serializable {
 
     @Autowired
-    private  AuthProperties authProperties;
+    private AuthProperties authProperties;
 
 
     public Claims getAllClaimsFromToken(String token) {
         JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(authProperties.getSecret().getBytes())).build();
-
         return jwtParser.parseClaimsJws(token).getBody();
     }
 
+    /**
+     * 获取token
+     * @param authable
+     * @return
+     */
     public String getToken(Authable authable) {
         return generateToken(authable.getIssuer(), authable.getClaims());
     }
 
+    /**
+     * 刷新Token
+     * @param claims 存储的自定义对象信息
+     * @return
+     */
     private String refreshToken(Claims claims) {
         return generateToken(claims.getIssuer(), claims);
     }
 
+    /**
+     * 构造token
+     * @param issuer
+     * @param claims
+     * @return
+     */
     private String generateToken(String issuer, Map<String, Object> claims) {
         claims.merge(AuthConstant.REFRESH_COUNT, 0, (value, newValue) -> (Integer) value < 3 ? (Integer) value + 1 : value);
         Integer refreshCount = (Integer) claims.get(AuthConstant.REFRESH_COUNT);
-        //long expirationTimeLong = Long.parseLong(authProperties.getExpirationTime());
+        //过期事件
         long expirationTimeLong = authProperties.getExpirationTime();
         final Date createdDate = new Date();
         final Date expirationDate = new Date(createdDate.getTime() + (refreshCount + 1) * expirationTimeLong * 1);
         return Jwts.builder()
-                .setIssuer(issuer)//发行
+                .setIssuer(issuer)//发行 jwt签发者
                 .setClaims(claims) //正文
                 .setIssuedAt(createdDate) //开始时间
                 .setExpiration(expirationDate) //过期时间
-                .signWith(Keys.hmacShaKeyFor(authProperties.getSecret().getBytes())) //签名
-                .compact();
+                .signWith(Keys.hmacShaKeyFor(authProperties.getSecret().getBytes())) //签名 （一参）密钥，（二参）算法
+                .compact(); //自动设置头部信息
     }
 
     public Map<String, Object> validateToken(String token) {

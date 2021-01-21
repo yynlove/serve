@@ -1,6 +1,6 @@
-package com.yh.serve.bean;
+package com.yyn.serve.bean;
 
-import com.yh.serve.service.Authable;
+import com.yyn.serve.service.Authable;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -16,17 +16,17 @@ public class Users implements Serializable, Authable {
     @Id
     private Long id;
 
-
     private String userName;
 
-    private String passWord;
+    private String password;
 
     private String md5;
 
+    private String address;
+    private Integer age;
     private Date createTime;
 
     private Integer isValid;
-
 
 
     public Long getId() {
@@ -45,12 +45,12 @@ public class Users implements Serializable, Authable {
         this.userName = userName;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getMd5() {
@@ -59,6 +59,22 @@ public class Users implements Serializable, Authable {
 
     public void setMd5(String md5) {
         this.md5 = md5;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public Date getCreateTime() {
@@ -82,8 +98,10 @@ public class Users implements Serializable, Authable {
         return "Users{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", passWord='" + passWord + '\'' +
+                ", password='" + password + '\'' +
                 ", md5='" + md5 + '\'' +
+                ", address='" + address + '\'' +
+                ", age=" + age +
                 ", createTime=" + createTime +
                 ", isValid=" + isValid +
                 '}';

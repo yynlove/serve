@@ -1,4 +1,4 @@
-package com.yh.serve;
+package com.yyn.serve;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @EnableConfigurationProperties
 @SpringBootApplication
-@MapperScan(basePackages ="com.yh.serve.mappers")
+@MapperScan(basePackages ="com.yyn.serve.mappers")
 public class ServeApplication {
 
     public static void main(String[] args) {

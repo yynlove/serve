@@ -1,4 +1,4 @@
-package com.yh.serve.bean;
+package com.yyn.serve.jwtUtil;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

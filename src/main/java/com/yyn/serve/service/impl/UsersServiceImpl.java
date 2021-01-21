@@ -1,10 +1,12 @@
-package com.yh.serve.service.impl;
+package com.yyn.serve.service.impl;
 
-import com.yh.serve.bean.Users;
-import com.yh.serve.mappers.UsersMapper;
-import com.yh.serve.service.UsersService;
+import com.yyn.serve.bean.Users;
+import com.yyn.serve.mappers.UsersMapper;
+import com.yyn.serve.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -21,6 +23,11 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public Users selectOne(Users users) {
         return usersMapper.selectOne(users);
+    }
+
+    @Override
+    public List<Users> listUsers() {
+        return usersMapper.selectAll();
     }
 
 

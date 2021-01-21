@@ -1,4 +1,4 @@
-package com.yh.serve.bean;
+package com.yyn.serve.bean;
 
 import java.util.Map;
 

@@ -1,8 +1,8 @@
-package com.yh.serve;
+package com.yyn.serve;
 
 
-import com.yh.serve.bean.Users;
-import com.yh.serve.service.UsersService;
+import com.yyn.serve.jwtUtil.JWTUtil;
+import com.yyn.serve.service.UsersService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,9 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.Date;
-import java.util.Map;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes=ServeApplication.class)
 @WebAppConfiguration
@@ -23,9 +20,9 @@ public class UsersControllerTest {
 
     private static final Logger logger = LoggerFactory.getLogger(UsersControllerTest.class);
     @Autowired
-    private  UsersService usersService;
+    private UsersService usersService;
     @Autowired
-    private  JWTUtil jwtUtil;
+    private JWTUtil jwtUtil;
 
 
 
