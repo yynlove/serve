@@ -1,5 +1,7 @@
 package com.yyn.serve.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yyn.serve.jwtUtil.JWTUtil;
 import com.yyn.serve.bean.Result;
 import com.yyn.serve.bean.Users;
@@ -10,32 +12,42 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
 public class UsersController {
 
+    private final UsersService usersService;
+    private final JWTUtil jwtUtil;
+
     @Autowired
-    private UsersService usersService;
-    @Autowired
-    private JWTUtil jwtUtil;
+    public UsersController(UsersService usersService,JWTUtil jwtUtil){
+        this.usersService = usersService;
+        this.jwtUtil = jwtUtil;
+    }
 
     @GetMapping("/insertOne")
-    public void insertOne(){
+    public Integer insertOne(){
         Users users = new Users();
-        users.setUserName("admin");
+        users.setUserName("yuanyenan");
         users.setPassword("123456");
         users.setCreateTime(new Date());
         int i = usersService.insertOne(users);
-        System.out.println(i);
-
+        return i;
     }
 
+    @PostMapping("updateUser")
+    public Result updateUser(Users user){
+       Result result =  this.usersService.updateUser(user);
+       return result;
+    }
 
     @GetMapping("/listUsers")
-    public List<Users> listUsers(){
-        List<Users> users = usersService.listUsers();
-        return users;
+    public Result<List<Users>> listUsers(Integer pageIndex,Integer pageSize){
+        final IPage<Users> usersPage = new Page<>(pageIndex, pageSize);
+        final Result<List<Users>> listResult = usersService.listUsers(usersPage);
+        return listResult;
     }
 
     @GetMapping("/login")

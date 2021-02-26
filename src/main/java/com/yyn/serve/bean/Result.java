@@ -9,6 +9,14 @@ public class Result<T> {
     private Integer total;
     private T data;
 
+
+    public Result(HttpStatus httpStatus, String message, Integer total, T data) {
+        this.httpStatus = httpStatus;
+        this.message = message;
+        this.total = total;
+        this.data = data;
+    }
+
     public Result(String message, T data) {
         this.message = message;
         this.data = data;

@@ -2,18 +2,14 @@ package com.yyn.serve.bean;
 
 import com.yyn.serve.service.Authable;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@Table(name = "users")
+
 public class Users implements Serializable, Authable {
 
-    @Id
     private Long id;
 
     private String userName;
@@ -23,7 +19,9 @@ public class Users implements Serializable, Authable {
     private String md5;
 
     private String address;
+
     private Integer age;
+
     private Date createTime;
 
     private Integer isValid;
