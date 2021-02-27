@@ -6,6 +6,7 @@ import com.yyn.serve.jwtUtil.JWTUtil;
 import com.yyn.serve.bean.Result;
 import com.yyn.serve.bean.Users;
 import com.yyn.serve.service.UsersService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,20 +28,29 @@ public class UsersController {
         this.jwtUtil = jwtUtil;
     }
 
-    @GetMapping("/insertOne")
-    public Integer insertOne(){
-        Users users = new Users();
-        users.setUserName("yuanyenan");
-        users.setPassword("123456");
-        users.setCreateTime(new Date());
-        int i = usersService.insertOne(users);
+    @PostMapping("/insertOne")
+    public Integer insertOne(@RequestBody Users user){
+        int i = usersService.insertOne(user);
         return i;
     }
 
-    @PostMapping("updateUser")
-    public Result updateUser(Users user){
+
+    @GetMapping("checkAccount")
+    public Integer checkAccount(String account){
+       return this.usersService.checkAccount(account);
+    }
+
+
+    @PutMapping("updateUser")
+    public Result updateUser(@RequestBody Users user){
        Result result =  this.usersService.updateUser(user);
        return result;
+    }
+
+
+    @DeleteMapping("deleteUserById")
+    public Integer deleteUserById(Integer id){
+       return this.usersService.deleteUserById(id);
     }
 
     @GetMapping("/listUsers")

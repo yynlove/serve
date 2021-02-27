@@ -51,5 +51,18 @@ public class UsersServiceImpl implements UsersService {
         return new Result(HttpStatus.NOT_FOUND,"修改失败。");
     }
 
+    @Override
+    public Integer checkAccount(String account) {
+        Users users = new Users();
+        users.setAccount(account);
+        users.setIsValid(1);
+        return this.usersMapper.selectCount(new QueryWrapper<>(users));
+    }
+
+    @Override
+    public Integer deleteUserById(Integer id) {
+        return this.usersMapper.deleteById(id);
+    }
+
 
 }

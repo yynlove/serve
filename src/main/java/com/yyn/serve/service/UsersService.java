@@ -15,4 +15,8 @@ public interface UsersService {
     Result<List<Users>> listUsers(IPage<Users> usersPage);
 
     Result updateUser(Users user);
+
+    Integer checkAccount(String account);
+
+    Integer deleteUserById(Integer id);
 }
