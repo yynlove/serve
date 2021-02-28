@@ -35,9 +35,10 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Result<List<Users>> listUsers(IPage<Users> usersPage) {
-        final IPage<Users> usersIPage = usersMapper.selectPage(usersPage, null);
-        final Integer count = usersMapper.selectCount(null);
+    public Result<List<Users>> listUsers(IPage<Users> usersPage, Users users) {
+        QueryWrapper<Users> usersQueryWrapper = new QueryWrapper<>(users);
+        final IPage<Users> usersIPage = usersMapper.selectPage(usersPage, usersQueryWrapper);
+        final Integer count = usersMapper.selectCount(usersQueryWrapper);
         final Result<List<Users>> listResult = new Result<>(HttpStatus.OK,null,count,usersIPage.getRecords());
         return listResult;
     }

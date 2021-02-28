@@ -54,10 +54,20 @@ public class UsersController {
     }
 
     @GetMapping("/listUsers")
-    public Result<List<Users>> listUsers(Integer pageIndex,Integer pageSize){
+    public Result<List<Users>> listUsers(Integer pageIndex,Integer pageSize,String account,String userName,Integer age){
         final IPage<Users> usersPage = new Page<>(pageIndex, pageSize);
-        final Result<List<Users>> listResult = usersService.listUsers(usersPage);
-        return listResult;
+        Users users = new Users();
+        users.setIsValid(1);
+        if(!account.isEmpty()){
+            users.setAccount(account);
+        }
+        if(!userName.isEmpty()){
+            users.setUserName(userName);
+        }
+        if(age!=null){
+            users.setAge(age);
+        }
+        return usersService.listUsers(usersPage,users);
     }
 
     @GetMapping("/login")
