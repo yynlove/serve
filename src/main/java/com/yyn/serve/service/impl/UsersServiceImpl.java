@@ -35,9 +35,10 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Result<List<Users>> listUsers(IPage<Users> usersPage) {
-        final IPage<Users> usersIPage = usersMapper.selectPage(usersPage, null);
-        final Integer count = usersMapper.selectCount(null);
+    public Result<List<Users>> listUsers(IPage<Users> usersPage, Users users) {
+        QueryWrapper<Users> usersQueryWrapper = new QueryWrapper<>(users);
+        final IPage<Users> usersIPage = usersMapper.selectPage(usersPage, usersQueryWrapper);
+        final Integer count = usersMapper.selectCount(usersQueryWrapper);
         final Result<List<Users>> listResult = new Result<>(HttpStatus.OK,null,count,usersIPage.getRecords());
         return listResult;
     }
@@ -49,6 +50,19 @@ public class UsersServiceImpl implements UsersService {
             return new Result(HttpStatus.OK,"修改成功。");
         }
         return new Result(HttpStatus.NOT_FOUND,"修改失败。");
+    }
+
+    @Override
+    public Integer checkAccount(String account) {
+        Users users = new Users();
+        users.setAccount(account);
+        users.setIsValid(1);
+        return this.usersMapper.selectCount(new QueryWrapper<>(users));
+    }
+
+    @Override
+    public Integer deleteUserById(Integer id) {
+        return this.usersMapper.deleteById(id);
     }
 
 

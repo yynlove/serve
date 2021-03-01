@@ -26,6 +26,10 @@ public class Users implements Serializable, Authable {
 
     private Integer isValid;
 
+    private String account;
+
+    private Integer gender;
+
 
     public Long getId() {
         return id;
@@ -91,6 +95,23 @@ public class Users implements Serializable, Authable {
         this.isValid = isValid;
     }
 
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+
     @Override
     public String toString() {
         return "Users{" +
@@ -102,6 +123,8 @@ public class Users implements Serializable, Authable {
                 ", age=" + age +
                 ", createTime=" + createTime +
                 ", isValid=" + isValid +
+                ", account='" + account + '\'' +
+                ", gender=" + gender +
                 '}';
     }
 

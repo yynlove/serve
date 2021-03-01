@@ -12,7 +12,11 @@ public interface UsersService {
 
     Users selectOne(Users users);
 
-    Result<List<Users>> listUsers(IPage<Users> usersPage);
+    Result<List<Users>> listUsers(IPage<Users> usersPage, Users users);
 
     Result updateUser(Users user);
+
+    Integer checkAccount(String account);
+
+    Integer deleteUserById(Integer id);
 }
