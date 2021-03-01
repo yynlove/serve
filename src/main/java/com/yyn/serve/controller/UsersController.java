@@ -17,15 +17,16 @@ import java.util.Map;
 @RestController
 @RequestMapping("/users")
 public class UsersController {
-
-    private final UsersService usersService;
-    private final JWTUtil jwtUtil;
-
     @Autowired
-    public UsersController(UsersService usersService,JWTUtil jwtUtil){
-        this.usersService = usersService;
-        this.jwtUtil = jwtUtil;
-    }
+    private  UsersService usersService;
+    @Autowired
+    private  JWTUtil jwtUtil;
+
+//
+//    public UsersController(UsersService usersService,JWTUtil jwtUtil){
+//        this.usersService = usersService;
+//        this.jwtUtil = jwtUtil;
+//    }
 
     @GetMapping("/insertOne")
     public Integer insertOne(){
