@@ -6,14 +6,11 @@ import com.yyn.serve.jwtUtil.JWTUtil;
 import com.yyn.serve.bean.Result;
 import com.yyn.serve.bean.Users;
 import com.yyn.serve.service.UsersService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/users")
@@ -70,10 +67,10 @@ public class UsersController {
         return usersService.listUsers(usersPage,users);
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<Result<Users>> login(){
-        Users users2 = new Users();
-        Users users1 = usersService.selectOne(users2);
+    @PostMapping("/login")
+    public ResponseEntity<Result<Users>> login(@RequestBody Users user){
+        user.setIsValid(1);
+        Users users1 = usersService.selectOne(user);
         return ResponseEntity.ok().header("Authorization",jwtUtil.getToken(users1)).body(new Result("登录成功",users1));
     }
 
