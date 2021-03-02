@@ -130,7 +130,7 @@ public class Users implements Serializable, Authable {
 
     @Override
     public String getIssuer() {
-        return this.userName;
+        return this.account;
     }
 
     @Override

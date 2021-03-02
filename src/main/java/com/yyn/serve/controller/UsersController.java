@@ -2,6 +2,7 @@ package com.yyn.serve.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yyn.serve.bean.LoginInfo;
 import com.yyn.serve.jwtUtil.JWTUtil;
 import com.yyn.serve.bean.Result;
 import com.yyn.serve.bean.Users;
@@ -15,16 +16,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UsersController {
-    @Autowired
+
     private  UsersService usersService;
-    @Autowired
+
     private  JWTUtil jwtUtil;
 
-//
-//    public UsersController(UsersService usersService,JWTUtil jwtUtil){
-//        this.usersService = usersService;
-//        this.jwtUtil = jwtUtil;
-//    }
+    @Autowired
+    public UsersController(UsersService usersService,JWTUtil jwtUtil){
+        this.usersService = usersService;
+        this.jwtUtil = jwtUtil;
+    }
 
     @PostMapping("/insertOne")
     public Integer insertOne(@RequestBody Users user){
@@ -69,10 +70,14 @@ public class UsersController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Result<Users>> login(@RequestBody Users user){
+    public ResponseEntity<Result<LoginInfo>> login(@RequestBody Users user){
         user.setIsValid(1);
         Users users1 = usersService.selectOne(user);
-        return ResponseEntity.ok().header("Authorization",jwtUtil.getToken(users1)).body(new Result("登录成功",users1));
+        final String token = jwtUtil.getToken(users1);
+        final LoginInfo loginInfo = new LoginInfo();
+        loginInfo.setToken(token);
+        loginInfo.setAccount(users1.getAccount());
+        return ResponseEntity.ok().header("Authorization",token).body(new Result("登录成功",loginInfo));
     }
 
 }

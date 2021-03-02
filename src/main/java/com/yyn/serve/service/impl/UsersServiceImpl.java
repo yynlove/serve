@@ -15,13 +15,13 @@ import java.util.List;
 
 @Service
 public class UsersServiceImpl implements UsersService {
-    @Autowired
+
     private  UsersMapper usersMapper;
 
-
-//    public UsersServiceImpl(UsersMapper usersMapper) {
-//        this.usersMapper = usersMapper;
-//    }
+    @Autowired
+    public UsersServiceImpl(UsersMapper usersMapper) {
+        this.usersMapper = usersMapper;
+    }
 
 
     @Override
