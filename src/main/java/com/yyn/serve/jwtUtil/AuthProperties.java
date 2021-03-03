@@ -8,10 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthProperties {
 
+    /**
+     * 密钥
+     */
     private String secret;
-
+    /**
+     * 过期时间
+     */
     private long expirationTime;
-
+    /**
+     * 刷新间隔
+     */
     private long refreshInterval;
 
 

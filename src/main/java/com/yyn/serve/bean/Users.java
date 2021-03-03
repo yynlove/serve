@@ -135,7 +135,7 @@ public class Users implements Serializable, Authable {
 
     @Override
     public Map<String, Object> getClaims() {
-        Map<String, Object> claims = new HashMap<>();
+        Map<String, Object> claims = new HashMap<>(2);
         claims.put("refreshCount", 0);
         claims.put("userId", id);
         return claims;

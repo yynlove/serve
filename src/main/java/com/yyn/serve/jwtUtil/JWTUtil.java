@@ -55,17 +55,23 @@ public class JWTUtil implements Serializable {
     private String generateToken(String issuer, Map<String, Object> claims) {
         claims.merge(AuthConstant.REFRESH_COUNT, 0, (value, newValue) -> (Integer) value < 3 ? (Integer) value + 1 : value);
         Integer refreshCount = (Integer) claims.get(AuthConstant.REFRESH_COUNT);
-        //过期事件
+        //过期时间
         long expirationTimeLong = authProperties.getExpirationTime();
         final Date createdDate = new Date();
-        final Date expirationDate = new Date(createdDate.getTime() + (refreshCount + 1) * expirationTimeLong * 1);
+        final Date expirationDate = new Date(createdDate.getTime() + (refreshCount  * expirationTimeLong));
         return Jwts.builder()
-                .setIssuer(issuer)//发行 jwt签发者
-                .setClaims(claims) //正文
-                .setIssuedAt(createdDate) //开始时间
-                .setExpiration(expirationDate) //过期时间
-                .signWith(Keys.hmacShaKeyFor(authProperties.getSecret().getBytes())) //签名 （一参）密钥，（二参）算法
-                .compact(); //自动设置头部信息
+                //发行 jwt签发者
+                .setIssuer(issuer)
+                //正文
+                .setClaims(claims)
+                //开始时间
+                .setIssuedAt(createdDate)
+                //过期时间
+                .setExpiration(expirationDate)
+                //签名 （一参）密钥，（二参）算法
+                .signWith(Keys.hmacShaKeyFor(authProperties.getSecret().getBytes()))
+                //自动设置头部信息
+                .compact();
     }
 
     public Map<String, Object> validateToken(String token) {
