@@ -69,15 +69,15 @@ public class UsersController {
         return usersService.listUsers(usersPage,users);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Result<LoginInfo>> login(@RequestBody Users user){
-        user.setIsValid(1);
-        Users users1 = usersService.selectOne(user);
-        final String token = jwtUtil.getToken(users1);
-        final LoginInfo loginInfo = new LoginInfo();
-        loginInfo.setToken(token);
-        loginInfo.setAccount(users1.getAccount());
-        return ResponseEntity.ok().header("Authorization",token).body(new Result("登录成功",loginInfo));
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<Result<LoginInfo>> login(@RequestBody Users user){
+//        user.setIsValid(1);
+//        Users users1 = usersService.selectOne(user);
+//        final String token = jwtUtil.getToken(users1);
+//        final LoginInfo loginInfo = new LoginInfo();
+//        loginInfo.setToken(token);
+//        loginInfo.setAccount(users1.getAccount());
+//        return ResponseEntity.ok().header("Authorization",token).body(new Result("登录成功",loginInfo));
+//    }
 
 }

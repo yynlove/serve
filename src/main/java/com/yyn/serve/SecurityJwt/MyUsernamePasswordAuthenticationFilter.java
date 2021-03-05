@@ -18,13 +18,16 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /**
- * 登录拦截
+ * 登录过滤
  */
 public class MyUsernamePasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
-    //拦截url为 "/login" 的POST请求
+    /**
+     * 拦截url为 "/login" 的POST请求
+     *
+     */
     public MyUsernamePasswordAuthenticationFilter() {
-        super(new AntPathRequestMatcher("/login", "POST"));
+        super(new AntPathRequestMatcher("/users/login", "POST"));
     }
 
     @Override
