@@ -3,7 +3,10 @@ package com.yyn.serve.SecurityJwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.yyn.serve.bean.Menu;
 import com.yyn.serve.bean.Users;
+import com.yyn.serve.mappers.MenuMapper;
+import com.yyn.serve.mappers.UserMenuMapper;
 import com.yyn.serve.mappers.UsersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Map;
 
 
 /**
@@ -26,8 +30,12 @@ import java.util.Date;
 public class JwtUserService implements UserDetailsService {
 
     private PasswordEncoder passwordEncoder;
+
     @Autowired
     private UsersMapper usersMapper;
+    @Autowired
+    private UserMenuMapper userMenuMapper;
+
     public JwtUserService() {
         //默认使用 bcrypt， strength=10
         this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();

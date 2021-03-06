@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/**").hasAnyRole("ADMIN","USER")
                 //需登陆才能访问的url
                 .antMatchers("/home/**").hasAnyRole("ADMIN","USER")
+                .antMatchers("/menu/**").hasAnyRole("ADMIN","USER")
                 //默认其它的请求都需要认证，这里一定要添加
                 .anyRequest().authenticated()
                 //2.禁用session

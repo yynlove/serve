@@ -2,13 +2,11 @@ package com.yyn.serve.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.yyn.serve.bean.LoginInfo;
-import com.yyn.serve.jwtUtil.JWTUtil;
 import com.yyn.serve.bean.Result;
 import com.yyn.serve.bean.Users;
 import com.yyn.serve.service.UsersService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -19,12 +17,11 @@ public class UsersController {
 
     private  UsersService usersService;
 
-    private  JWTUtil jwtUtil;
+
 
     @Autowired
-    public UsersController(UsersService usersService,JWTUtil jwtUtil){
+    public UsersController(UsersService usersService){
         this.usersService = usersService;
-        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/insertOne")
@@ -68,16 +65,5 @@ public class UsersController {
         }
         return usersService.listUsers(usersPage,users);
     }
-
-//    @PostMapping("/login")
-//    public ResponseEntity<Result<LoginInfo>> login(@RequestBody Users user){
-//        user.setIsValid(1);
-//        Users users1 = usersService.selectOne(user);
-//        final String token = jwtUtil.getToken(users1);
-//        final LoginInfo loginInfo = new LoginInfo();
-//        loginInfo.setToken(token);
-//        loginInfo.setAccount(users1.getAccount());
-//        return ResponseEntity.ok().header("Authorization",token).body(new Result("登录成功",loginInfo));
-//    }
 
 }

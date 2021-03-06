@@ -1,14 +1,8 @@
 package com.yyn.serve.bean;
-
-import com.yyn.serve.service.Authable;
-
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-
-public class Users implements Serializable, Authable {
+public class Users implements Serializable {
 
     private Long id;
 
@@ -126,19 +120,6 @@ public class Users implements Serializable, Authable {
                 ", account='" + account + '\'' +
                 ", gender=" + gender +
                 '}';
-    }
-
-    @Override
-    public String getIssuer() {
-        return this.account;
-    }
-
-    @Override
-    public Map<String, Object> getClaims() {
-        Map<String, Object> claims = new HashMap<>(2);
-        claims.put("refreshCount", 0);
-        claims.put("userId", id);
-        return claims;
     }
 
 }
