@@ -2,6 +2,7 @@ package com.yyn.serve.SecurityJwt;
 
 
 import com.alibaba.fastjson.JSON;
+import com.yyn.serve.bean.Users;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -34,7 +35,8 @@ public class JsonLoginSuccessHandler implements AuthenticationSuccessHandler {
         //生成token，并把token加密相关信息缓存，具体请看实现类
         String token = jwtUserService.saveUserLoginInfo((UserDetails)authentication.getPrincipal());
         httpServletResponse.setHeader("Authorization", token);
-        //httpServletResponse.getWriter().println(JSON.toJSONString());
+        Users user = jwtUserService.getUserId((UserDetails) authentication.getPrincipal());
+        httpServletResponse.getWriter().println(user.getId());
     }
 
 

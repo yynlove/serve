@@ -65,5 +65,10 @@ public class UsersServiceImpl implements UsersService {
         return this.usersMapper.deleteById(id);
     }
 
+    @Override
+    public Users selectById(Long uid) {
+        return this.usersMapper.selectById(uid);
+    }
+
 
 }

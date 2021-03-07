@@ -19,4 +19,6 @@ public interface UsersService {
     Integer checkAccount(String account);
 
     Integer deleteUserById(Integer id);
+
+    Users selectById(Long uid);
 }

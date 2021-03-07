@@ -47,10 +47,10 @@ public class MenuControllerTest {
 
             String s = JSON.toJSONString(collect.get(0L));
             UserMenu userMenu = new UserMenu();
-            userMenu.setId(1L);
             userMenu.setUserId(1L);
-            UserMenu userMenu1    = userMenuService.selectOne(userMenu);
-            System.out.println(userMenu1.toString());
+            userMenu.setUserMenus(s);
+             userMenuService.insertOne(userMenu);
+            //System.out.println(userMenu1.toString());
         }
 
 

@@ -67,6 +67,14 @@ public class JwtUserService implements UserDetailsService {
     }
 
 
+    public Users getUserId(UserDetails userDetails){
+
+        Users users = new Users();
+        users.setAccount(userDetails.getUsername());
+        users.setIsValid(1);
+        return this.usersMapper.selectOne(new QueryWrapper<>(users));
+    }
+
     public UserDetails getUserLoginInfo(String username) {
         String salt = "123456ef";
          //从数据库或者缓存中取出jwt token生成时用的salt
