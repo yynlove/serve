@@ -2,14 +2,16 @@ package com.yyn.serve;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class arpTest {
 
 
     @Test
     public static void main(String[] args) {
 
-        final String property = System.getProperty("java.library.path");
-        System.out.println(property);
-
+       String s = "java.library.path";
+        final String[] split = s.split("\\.");
+        System.out.println(split[0]);
     }
 }
