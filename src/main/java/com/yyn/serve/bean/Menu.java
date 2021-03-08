@@ -89,9 +89,7 @@ public class Menu {
     public static List<Menu> initChildren(List<Menu> menus){
         Map<Long, List<Menu>> collect = menus.stream().collect(Collectors.groupingBy(Menu::getPid));
 
-        menus.forEach(menu2 -> {
-            menu2.setChildren(collect.get(menu2.getId()));
-        });
-        return collect.get(0);
+        menus.forEach(menu2 -> menu2.setChildren(collect.get(menu2.getId())));
+        return collect.get(0L);
     }
 }

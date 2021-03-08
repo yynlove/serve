@@ -7,4 +7,6 @@ import java.util.List;
 public interface MenuService {
 
     List<Menu> getMenu(Menu menu);
+
+    List<Menu> getUserMenus(Long uid);
 }
