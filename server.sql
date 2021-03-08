@@ -1,15 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : MySQL数据库
+ Source Server         : MySql
  Source Server Type    : MySQL
- Source Server Version : 50527
+ Source Server Version : 80019
  Source Host           : localhost:3306
  Source Schema         : server
 
  Target Server Type    : MySQL
- Target Server Version : 50527
+ Target Server Version : 80019
  File Encoding         : 65001
+
+ Date: 08/03/2021 17:44:04
 */
 
 SET NAMES utf8mb4;
@@ -20,76 +22,107 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `link` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '路由链接',
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标题',
-  `pid` bigint(20) NOT NULL COMMENT '父id',
-  `order_no` int(11) NULL DEFAULT NULL COMMENT '序号',
-  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_valid` int(11) NOT NULL DEFAULT 1,
+  `id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `link` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '链接',
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '标题',
+  `pid` bigint(0) NULL DEFAULT NULL COMMENT '父id',
+  `order_no` int(0) NULL DEFAULT NULL COMMENT '序号',
+  `last_time` timestamp(0) NULL DEFAULT NULL COMMENT '时间戳',
+  `is_valid` int(0) NULL DEFAULT 1 COMMENT '是否有效',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES (1, '', '系统管理', 0, 1, '2021-03-06 14:56:13', 1);
-INSERT INTO `menu` VALUES (2, './welcome', '欢迎', 1, 1, '2021-03-06 15:14:36', 1);
-INSERT INTO `menu` VALUES (3, './user', '用户管理', 1, 2, '2021-03-06 15:14:36', 1);
-INSERT INTO `menu` VALUES (4, './menu', '菜单管理', 1, 3, '2021-03-06 15:14:36', 1);
-INSERT INTO `menu` VALUES (5, './permission', '权限管理', 1, 4, '2021-03-06 15:14:36', 1);
-INSERT INTO `menu` VALUES (6, '', '模块一', 0, 2, '2021-03-06 15:26:17', 1);
-INSERT INTO `menu` VALUES (7, './mokuai1', '模块-1', 6, 1, '2021-03-06 15:27:31', 1);
-INSERT INTO `menu` VALUES (8, './mokuai2', '模块-2', 6, 2, '2021-03-06 15:27:31', 1);
+INSERT INTO `menu` VALUES (1, NULL, '系统管理', 0, 1, '2021-03-08 13:47:42', 1);
+INSERT INTO `menu` VALUES (2, './welcome', '欢迎', 1, 1, '2021-03-08 13:48:23', 1);
+INSERT INTO `menu` VALUES (3, './user', '用户管理', 1, 2, '2021-03-08 13:48:52', 1);
+INSERT INTO `menu` VALUES (4, './role', '角色管理', 1, 3, '2021-03-08 13:49:38', 1);
+INSERT INTO `menu` VALUES (5, './menus', '菜单管理', 1, 4, '2021-03-08 13:50:14', 1);
+INSERT INTO `menu` VALUES (6, NULL, '应用管理', 0, 2, '2021-03-08 13:50:47', 1);
+INSERT INTO `menu` VALUES (7, './mokuai1', '模块一', 6, 1, '2021-03-08 13:51:22', 1);
 
 -- ----------------------------
--- Table structure for user_menu
+-- Table structure for role
 -- ----------------------------
-DROP TABLE IF EXISTS `user_menu`;
-CREATE TABLE `user_menu`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` bigint(20) NOT NULL COMMENT '用户主键',
-  `user_menus` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户菜单字符串',
-  `last_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
-  `is_valid` int(11) NOT NULL DEFAULT 1 COMMENT '有效',
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '角色id',
+  `role_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '角色名',
+  `role_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '编码',
+  `last_time` timestamp(0) NULL DEFAULT NULL COMMENT '最后一次修改时间',
+  `is_valid` int(0) NULL DEFAULT 1 COMMENT '是否有效',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of user_menu
+-- Records of role
 -- ----------------------------
-INSERT INTO `user_menu` VALUES (3, 1, '[{\"children\":[{\"createTime\":1615014876000,\"id\":2,\"isValid\":1,\"link\":\"./welcome\",\"orderNo\":1,\"pid\":1,\"title\":\"欢迎\"},{\"createTime\":1615014876000,\"id\":3,\"isValid\":1,\"link\":\"./user\",\"orderNo\":2,\"pid\":1,\"title\":\"用户管理\"},{\"createTime\":1615014876000,\"id\":4,\"isValid\":1,\"link\":\"./menu\",\"orderNo\":3,\"pid\":1,\"title\":\"菜单管理\"},{\"createTime\":1615014876000,\"id\":5,\"isValid\":1,\"link\":\"./permission\",\"orderNo\":4,\"pid\":1,\"title\":\"权限管理\"}],\"createTime\":1615013773000,\"id\":1,\"isValid\":1,\"link\":\"\",\"orderNo\":1,\"pid\":0,\"title\":\"系统管理\"},{\"children\":[{\"createTime\":1615015651000,\"id\":7,\"isValid\":1,\"link\":\"./mokuai1\",\"orderNo\":1,\"pid\":6,\"title\":\"模块-1\"},{\"createTime\":1615015651000,\"id\":8,\"isValid\":1,\"link\":\"./mokuai2\",\"orderNo\":2,\"pid\":6,\"title\":\"模块-2\"}],\"createTime\":1615015577000,\"id\":6,\"isValid\":1,\"link\":\"\",\"orderNo\":2,\"pid\":0,\"title\":\"模块一\"}]', NULL, 1);
+INSERT INTO `role` VALUES (1, '管理员', 'admin', '2021-03-08 13:45:21', 1);
+INSERT INTO `role` VALUES (2, '用户', 'user', '2021-03-08 13:45:44', 1);
+
+-- ----------------------------
+-- Table structure for role_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `role_menu`;
+CREATE TABLE `role_menu`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `role_id` bigint(0) NULL DEFAULT NULL COMMENT '角色id',
+  `menu_id` bigint(0) NULL DEFAULT NULL COMMENT '菜单id',
+  `is_valid` int(0) NULL DEFAULT 1,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of role_menu
+-- ----------------------------
+INSERT INTO `role_menu` VALUES (1, 1, 1, 1);
+INSERT INTO `role_menu` VALUES (2, 1, 2, 1);
+INSERT INTO `role_menu` VALUES (3, 1, 3, 1);
+INSERT INTO `role_menu` VALUES (4, 1, 4, 1);
+INSERT INTO `role_menu` VALUES (5, 1, 5, 1);
+INSERT INTO `role_menu` VALUES (6, 1, 6, 1);
+INSERT INTO `role_menu` VALUES (7, 1, 7, 1);
+
+-- ----------------------------
+-- Table structure for user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE `user_role`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` bigint(0) NULL DEFAULT NULL COMMENT '用户id',
+  `role_id` bigint(0) NULL DEFAULT NULL COMMENT '角色Id',
+  `is_valid` int(0) NULL DEFAULT 1 COMMENT '是否有效',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of user_role
+-- ----------------------------
+INSERT INTO `user_role` VALUES (1, 1, 1, 1);
 
 -- ----------------------------
 -- Table structure for users
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `password` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `md5` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `age` int(4) NULL DEFAULT NULL,
-  `address` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `is_valid` int(11) NULL DEFAULT 1,
-  `gender` int(11) NULL DEFAULT NULL,
-  `account` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '姓名',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '密码',
+  `md5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `age` int(0) NULL DEFAULT NULL,
+  `create_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  `is_valid` int(0) NULL DEFAULT 1,
+  `account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '账户名',
+  `gender` int(0) NULL DEFAULT NULL COMMENT '性别',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'admin', '123456', NULL, '2021-02-19 22:02:46', 15, '4444444444444444444444444444444444', 1, 1, 'admin');
-INSERT INTO `users` VALUES (2, 'yuanyenan', '123456', NULL, '2021-02-27 21:32:56', 15, '213456', 1, 1, 'yuanyenan');
-INSERT INTO `users` VALUES (5, '1', '1', NULL, '2021-02-28 15:22:49', 1, '1', 1, 1, '1');
-INSERT INTO `users` VALUES (6, '2', '2', NULL, '2021-02-28 15:23:00', 2, '2', 1, 2, '2');
-INSERT INTO `users` VALUES (7, '3', '3', NULL, '2021-02-28 15:25:26', 3, '3', 1, 3, '3');
-INSERT INTO `users` VALUES (8, '4', '4', NULL, '2021-02-28 15:25:59', 4, '4', 1, 2, '4');
-INSERT INTO `users` VALUES (9, '5', '5', NULL, '2021-02-28 15:26:09', 5, '5', 1, 2, '5');
-INSERT INTO `users` VALUES (10, '6', '6', NULL, '2021-02-28 15:26:18', 6, '6', 1, 2, '6');
-INSERT INTO `users` VALUES (11, '7', '7', NULL, '2021-02-28 15:26:27', 7, '7', 1, 2, '7');
-INSERT INTO `users` VALUES (12, '8', '8', NULL, '2021-02-28 15:26:50', 8, '8', 1, 2, '8');
+INSERT INTO `users` VALUES (1, 'admin', '123456', NULL, 'renle', 123, '2021-03-02 03:38:42.764000', 1, 'admin', 2);
 
 SET FOREIGN_KEY_CHECKS = 1;

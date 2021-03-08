@@ -2,17 +2,13 @@ package com.yyn.serve.bean;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 
-import java.util.Date;
-
-public class UserMenu {
+public class UserRole {
 
     @TableField
     private Long id;
     private Long userId;
-    private String userMenus;
-    private Date lastTime;
+    private Long roleId;
     private Integer isValid;
-
 
     public Long getId() {
         return id;
@@ -30,15 +26,13 @@ public class UserMenu {
         this.userId = userId;
     }
 
-    public String getUserMenus() {
-        return userMenus;
+    public Long getRoleId() {
+        return roleId;
     }
 
-    public void setUserMenus(String userMenus) {
-        this.userMenus = userMenus;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
-
-
 
     public Integer getIsValid() {
         return isValid;
@@ -48,21 +42,12 @@ public class UserMenu {
         this.isValid = isValid;
     }
 
-    public Date getLastTime() {
-        return lastTime;
-    }
-
-    public void setLastTime(Date lastTime) {
-        this.lastTime = lastTime;
-    }
-
     @Override
     public String toString() {
-        return "UserMenu{" +
+        return "UserRole{" +
                 "id=" + id +
                 ", userId=" + userId +
-                ", userMenus='" + userMenus + '\'' +
-                ", lastTime=" + lastTime +
+                ", roleId=" + roleId +
                 ", isValid=" + isValid +
                 '}';
     }

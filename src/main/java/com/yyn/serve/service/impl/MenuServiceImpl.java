@@ -26,4 +26,9 @@ public class MenuServiceImpl implements MenuService {
         menuQueryWrapper.orderByAsc("pid","order_no");
         return this.menuMapper.selectList(menuQueryWrapper);
     }
+
+    @Override
+    public List<Menu> getUserMenus(Long uid) {
+        return this.menuMapper.getUserMenus(uid);
+    }
 }

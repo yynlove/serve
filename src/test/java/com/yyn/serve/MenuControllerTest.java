@@ -1,13 +1,8 @@
 package com.yyn.serve;
 
 
-import com.alibaba.fastjson.JSON;
 import com.yyn.serve.bean.Menu;
-import com.yyn.serve.bean.UserMenu;
-import com.yyn.serve.bean.Users;
 import com.yyn.serve.service.MenuService;
-import com.yyn.serve.service.UserMenuService;
-import com.yyn.serve.service.UsersService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -29,9 +24,6 @@ public class MenuControllerTest {
     private static final Logger logger = LoggerFactory.getLogger(MenuControllerTest.class);
     @Autowired
     private MenuService menuService;
-    @Autowired
-    private UserMenuService userMenuService;
-
         @Test
         public void testMenu() throws Exception{
             Menu menu = new Menu();
@@ -44,12 +36,6 @@ public class MenuControllerTest {
             menu1.forEach(menu2 -> {
                 menu2.setChildren(collect.get(menu2.getId()));
             });
-
-            String s = JSON.toJSONString(collect.get(0L));
-            UserMenu userMenu = new UserMenu();
-            userMenu.setUserId(1L);
-            userMenu.setUserMenus(s);
-             userMenuService.insertOne(userMenu);
             //System.out.println(userMenu1.toString());
         }
 
