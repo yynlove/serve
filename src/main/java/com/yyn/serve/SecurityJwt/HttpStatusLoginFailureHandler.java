@@ -16,7 +16,6 @@ public class HttpStatusLoginFailureHandler implements AuthenticationFailureHandl
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-
         httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
     }
 }
