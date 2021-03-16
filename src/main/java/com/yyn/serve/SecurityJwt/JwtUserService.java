@@ -14,11 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -48,7 +45,6 @@ public class JwtUserService implements UserDetailsService {
         //真实系统需要从数据库或缓存中获取，这里对密码做了加密
         //String salt = "123456ef";
         //final String salt = map.get("token:" + account).getSalt();
-
         final Users users = new Users();
         users.setAccount(account);
         users.setIsValid(1);
@@ -62,14 +58,12 @@ public class JwtUserService implements UserDetailsService {
         //BCrypt.gensalt();  正式开发时可以调用该方法实时生成加密的salt
         //String salt = "123456ef";
         final String gensalt = BCrypt.gensalt();
-
-        final JwtUserBean jwtUserBean = new JwtUserBean("token:" + userDetails.getUsername(), gensalt, 3600L, TimeUnit.SECONDS);
-        concurrentHashMap.putIfAbsent(jwtUserBean.getKey(),jwtUserBean);
-
+        Date date = new Date(System.currentTimeMillis()+5*60*1000);
+        final JwtUserBean jwtUserBean = new JwtUserBean("token:" + userDetails.getUsername(), gensalt, date.getTime(), TimeUnit.SECONDS);
+        concurrentHashMap.put(jwtUserBean.getKey(),jwtUserBean);
         //将salt保存到数据库或者缓存中
         Algorithm algorithm = Algorithm.HMAC256(gensalt);
         //设置1小时后过期
-        Date date = new Date(System.currentTimeMillis()+3600*1000);
         return JWT.create()
                 .withSubject(userDetails.getUsername())
                 .withExpiresAt(date)
@@ -78,12 +72,14 @@ public class JwtUserService implements UserDetailsService {
     }
 
 
-    public Users getUserId(UserDetails userDetails){
-
+    public Users getUser(UserDetails userDetails){
         Users users = new Users();
         users.setAccount(userDetails.getUsername());
         users.setIsValid(1);
-        return this.usersMapper.selectOne(new QueryWrapper<>(users));
+        final JwtUserBean jwtUserBean = concurrentHashMap.get("token:" + userDetails.getUsername());
+        final Users users1 = this.usersMapper.selectOne(new QueryWrapper<>(users));
+        users1.setTimeout(TimeUnit.NANOSECONDS.toSeconds(jwtUserBean.getTimeout()));
+        return users1;
     }
 
     public UserDetails getUserLoginInfo(String username) {

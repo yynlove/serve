@@ -1,6 +1,9 @@
 package com.yyn.serve.bean;
+import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Users implements Serializable {
 
@@ -24,6 +27,17 @@ public class Users implements Serializable {
 
     private Integer gender;
 
+    @TableField(exist = false)
+    private Long timeout;
+
+
+    public Long getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(Long timeout) {
+        this.timeout = timeout;
+    }
 
     public Long getId() {
         return id;
@@ -119,7 +133,7 @@ public class Users implements Serializable {
                 ", isValid=" + isValid +
                 ", account='" + account + '\'' +
                 ", gender=" + gender +
+                ", timeout=" + timeout +
                 '}';
     }
-
 }

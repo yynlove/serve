@@ -4,6 +4,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -20,6 +22,8 @@ import java.util.Calendar;
  */
 public class JwtAuthenticationProvider implements AuthenticationProvider {
 
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationProvider.class);
+
     private JwtUserService userService;
 
     public JwtAuthenticationProvider(JwtUserService userService) {
@@ -31,6 +35,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         DecodedJWT jwt = ((JwtAuthenticationToken)authentication).getToken();
         if(jwt.getExpiresAt().before(Calendar.getInstance().getTime())){
+            logger.info("token过期");
             throw new NonceExpiredException("Token expires");
         }
         String username = jwt.getSubject();

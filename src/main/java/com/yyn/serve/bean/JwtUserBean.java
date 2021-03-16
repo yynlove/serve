@@ -7,9 +7,7 @@ public class JwtUserBean {
 
     private String key;
     private String salt;
-
     private Long timeout;
-
     private TimeUnit seconds;
 
 
