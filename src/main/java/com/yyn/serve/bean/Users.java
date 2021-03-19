@@ -1,7 +1,10 @@
 package com.yyn.serve.bean;
 import com.baomidou.mybatisplus.annotation.TableField;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -12,8 +15,6 @@ public class Users implements Serializable {
     private String userName;
 
     private String password;
-
-    private String md5;
 
     private String address;
 
@@ -26,6 +27,7 @@ public class Users implements Serializable {
     private String account;
 
     private Integer gender;
+
 
     @TableField(exist = false)
     private Long timeout;
@@ -55,20 +57,13 @@ public class Users implements Serializable {
         this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getMd5() {
-        return md5;
-    }
 
-    public void setMd5(String md5) {
-        this.md5 = md5;
+    public String getPassword() {
+        return password;
     }
 
     public String getAddress() {
@@ -126,7 +121,6 @@ public class Users implements Serializable {
                 "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                ", md5='" + md5 + '\'' +
                 ", address='" + address + '\'' +
                 ", age=" + age +
                 ", createTime=" + createTime +

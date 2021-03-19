@@ -7,8 +7,11 @@ import com.yyn.serve.bean.Users;
 import com.yyn.serve.service.UsersService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.PriorityQueue;
 
 
 @RestController
@@ -51,6 +54,10 @@ public class UsersController {
 
     @GetMapping("/listUsers")
     public Result<List<Users>> listUsers(Integer pageIndex,Integer pageSize,String account,String userName,Integer age){
+
+        //获取用户名
+        final Object credentials = SecurityContextHolder.getContext().getAuthentication().getCredentials();
+        System.out.println(credentials);
         final IPage<Users> usersPage = new Page<>(pageIndex, pageSize);
         Users users = new Users();
         users.setIsValid(1);

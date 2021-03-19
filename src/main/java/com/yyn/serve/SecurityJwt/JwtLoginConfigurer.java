@@ -6,6 +6,12 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 
+/**
+ * 用户除登录之外的请求，都要求必须携带JWT Token。所以我们需要另外一个Filter对这些请求做一个拦截。
+ * 这个拦截器主要是提取header中的token，跟登录一样，提交给AuthenticationManager做检查。
+ * @param <T>
+ * @param <B>
+ */
 public class JwtLoginConfigurer<T extends JwtLoginConfigurer<T, B>, B extends HttpSecurityBuilder<B>> extends AbstractHttpConfigurer<T, B> {
 
     private JwtAuthenticationFilter authFilter;

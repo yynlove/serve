@@ -19,6 +19,9 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * 登录拦截
+ * 定义了认证处理的过程。是一个模板类
+ * 只需要实现两部分，一个是RequestMatcher，指名拦截的Request类型；
+ * 另外就是从json body中提取出username和password提交给AuthenticationManager。
  */
 public class MyUsernamePasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
@@ -50,8 +53,7 @@ public class MyUsernamePasswordAuthenticationFilter extends AbstractAuthenticati
         }
         account = account.trim();
         //封装到token中提交
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
-                account, password);
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(account, password);
 
         return this.getAuthenticationManager().authenticate(authRequest);
     }

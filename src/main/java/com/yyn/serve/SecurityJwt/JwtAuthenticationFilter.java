@@ -134,9 +134,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return authenticationManager;
     }
 
-
-
-
+    /**
+     * 在configurer中 设置
+     * @param authenticationManager
+     */
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }

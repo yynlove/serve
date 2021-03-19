@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * 成功认证
@@ -21,8 +22,6 @@ public class JsonLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private JwtUserService jwtUserService;
 
-
-
     public JsonLoginSuccessHandler(JwtUserService jwtUserService) {
         this.jwtUserService = jwtUserService;
     }
@@ -33,7 +32,10 @@ public class JsonLoginSuccessHandler implements AuthenticationSuccessHandler {
         String token = jwtUserService.saveUserLoginInfo((UserDetails)authentication.getPrincipal());
         httpServletResponse.setHeader("Authorization", token);
         Users user = jwtUserService.getUser((UserDetails) authentication.getPrincipal());
-        httpServletResponse.getWriter().println(JSON.toJSONString(user));
+        final PrintWriter writer = httpServletResponse.getWriter();
+        writer.println(JSON.toJSONString(user));
+        writer.flush();
+        writer.close();
     }
 
 

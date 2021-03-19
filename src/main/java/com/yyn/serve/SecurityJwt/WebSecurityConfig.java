@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.header.Header;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -28,8 +29,6 @@ import java.util.Arrays;
  */
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-
 
 
     @Override
@@ -56,9 +55,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //
                 .and()
                 .headers().addHeaderWriter(new StaticHeadersWriter(Arrays.asList(
+                //指定允许其他域名访问
                 new Header("Access-control-Allow-Origin","*"),
+                //响应首部 Access-Control-Expose-Headers 列出了哪些首部可以作为响应的一部分暴露给外部。
                 new Header("Access-Control-Expose-Headers","Authorization"))))
-
                 //拦截OPTIONS请求，直接返回header
                 .and()
                 .addFilterAfter(new OptionRequestFilter(), CorsFilter.class)
@@ -78,37 +78,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
                 .and()
                 .sessionManagement().disable();
+            //设置userDetailService
+            http.userDetailsService(jwtUserService()).authenticationProvider(new JwtAuthenticationProvider(jwtUserService()));
+
     }
 
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(daoAuthenticationProvider()).authenticationProvider(jwtAuthenticationProvider());
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.authenticationProvider(daoAuthenticationProvider()).authenticationProvider(jwtAuthenticationProvider());
+//    }
 
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+//    @Override
+//    @Bean
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 
-    @Bean("jwtAuthenticationProvider")
-    protected AuthenticationProvider jwtAuthenticationProvider() {
-        return new JwtAuthenticationProvider(jwtUserService());
-    }
+//    @Bean("jwtAuthenticationProvider")
+//    protected AuthenticationProvider jwtAuthenticationProvider() {
+//        return new JwtAuthenticationProvider(jwtUserService());
+//    }
 
-    @Bean("daoAuthenticationProvider")
-    protected AuthenticationProvider daoAuthenticationProvider() throws Exception{
-        //这里会默认使用BCryptPasswordEncoder比对加密后的密码，注意要跟createUser时保持一致
-        DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
-        daoProvider.setUserDetailsService(userDetailsService());
-        return daoProvider;
-    }
+//    @Bean("daoAuthenticationProvider")
+//    protected AuthenticationProvider daoAuthenticationProvider() throws Exception{
+//        //这里会默认使用BCryptPasswordEncoder比对加密后的密码，注意要跟createUser时保持一致
+//        DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
+//        daoProvider.setUserDetailsService(userDetailsService());
+//        return daoProvider;
+//    }
 
-    @Override
-    protected UserDetailsService userDetailsService() {
-        return SpringUtil.getBean(JwtUserService.class);
-    }
+//    @Override
+//    protected UserDetailsService userDetailsService() {
+//        return SpringUtil.getBean(JwtUserService.class);
+//    }
 
     protected JwtUserService jwtUserService() {
         return SpringUtil.getBean(JwtUserService.class);

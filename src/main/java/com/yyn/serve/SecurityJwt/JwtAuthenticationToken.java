@@ -9,6 +9,7 @@ import javax.security.auth.Subject;
 import java.util.Collection;
 import java.util.Collections;
 
+
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     private static final long serialVersionUID = 3981518947978158945L;

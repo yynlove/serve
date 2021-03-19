@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 public class JwtUserService implements UserDetailsService {
 
     private PasswordEncoder passwordEncoder;
-
+    //用来存储用户数据
     private static final ConcurrentHashMap<String,JwtUserBean> concurrentHashMap = new ConcurrentHashMap();
 
 
@@ -50,15 +50,15 @@ public class JwtUserService implements UserDetailsService {
         users.setIsValid(1);
         final Users users1 = usersMapper.selectOne(new QueryWrapper<Users>(users));
         final String encode = passwordEncoder.encode(users1.getPassword());
-        System.out.println(encode);
         return User.builder().username(users1.getAccount()).password(passwordEncoder.encode(users1.getPassword())).roles("USER").build();
     }
 
+
     public String saveUserLoginInfo(UserDetails userDetails) {
-        //BCrypt.gensalt();  正式开发时可以调用该方法实时生成加密的salt
-        //String salt = "123456ef";
+        //BCrypt.gensalt();
+        //正式开发时可以调用该方法实时生成加密的salt
         final String gensalt = BCrypt.gensalt();
-        Date date = new Date(System.currentTimeMillis()+5*60*1000);
+        Date date = new Date( System.currentTimeMillis() + 1*60*1000 );
         final JwtUserBean jwtUserBean = new JwtUserBean("token:" + userDetails.getUsername(), gensalt, date.getTime(), TimeUnit.SECONDS);
         concurrentHashMap.put(jwtUserBean.getKey(),jwtUserBean);
         //将salt保存到数据库或者缓存中
