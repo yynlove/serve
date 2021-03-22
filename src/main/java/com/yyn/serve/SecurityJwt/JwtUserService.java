@@ -58,7 +58,7 @@ public class JwtUserService implements UserDetailsService {
         //BCrypt.gensalt();
         //正式开发时可以调用该方法实时生成加密的salt
         final String gensalt = BCrypt.gensalt();
-        Date date = new Date( System.currentTimeMillis() + 1*60*1000 );
+        Date date = new Date( System.currentTimeMillis() + 60*60*1000 );
         final JwtUserBean jwtUserBean = new JwtUserBean("token:" + userDetails.getUsername(), gensalt, date.getTime(), TimeUnit.SECONDS);
         concurrentHashMap.put(jwtUserBean.getKey(),jwtUserBean);
         //将salt保存到数据库或者缓存中
