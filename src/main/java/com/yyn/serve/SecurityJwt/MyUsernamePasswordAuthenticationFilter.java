@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /**
- * 登录过滤
+ * 登录拦截
  */
 public class MyUsernamePasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 

@@ -36,10 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 //1.静态资源访问无需认证
-                .antMatchers("/image/**").permitAll()
-                //admin开头的请求，需要admin权限
+                //.antMatchers("/image/**").permitAll()
                 .antMatchers("/users/**").hasAnyRole("ADMIN","USER")
-                //需登陆才能访问的url
                 .antMatchers("/home/**").hasAnyRole("ADMIN","USER")
                 .antMatchers("/menu/**").hasAnyRole("ADMIN","USER")
                 //默认其它的请求都需要认证，这里一定要添加
@@ -65,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterAfter(new OptionRequestFilter(), CorsFilter.class)
                 //添加登录filter
-                .apply(new JsonLoginConfigurer<>()).loginSuccessHandler(jsonLoginSuccessHandler())
+                .apply(new JsonLoginConfigurer<>()).setLoginSuccessHandler(jsonLoginSuccessHandler())
                 .and()
                 //添加token的filter
                 .apply(new JwtLoginConfigurer<>()).tokenValidSuccessHandler(jwtRefreshSuccessHandler()).permissiveRequestUrls("/logout")

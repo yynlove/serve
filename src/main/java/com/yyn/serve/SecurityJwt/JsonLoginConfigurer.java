@@ -40,7 +40,7 @@ public class JsonLoginConfigurer<T extends JsonLoginConfigurer<T, B>, B extends 
      * @param authSuccessHandler
      * @return
      */
-    public JsonLoginConfigurer<T,B> loginSuccessHandler(AuthenticationSuccessHandler authSuccessHandler){
+    public JsonLoginConfigurer<T,B> setLoginSuccessHandler(AuthenticationSuccessHandler authSuccessHandler){
         authFilter.setAuthenticationSuccessHandler(authSuccessHandler);
         return this;
     }
