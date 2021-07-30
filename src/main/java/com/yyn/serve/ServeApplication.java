@@ -16,7 +16,6 @@ public class ServeApplication {
 
     public static void main(String[] args) {
 
-
         final ConfigurableApplicationContext run = SpringApplication.run(ServeApplication.class, args);
         final NettyServer bean = run.getBean(NettyServer.class);
         try {
